@@ -14,8 +14,10 @@ module Pomo
       # using the block, manifest is generated here
       # call the default_manifest, if there is no block
       
-      if block_given?
-        yield
+      @manifest = if block_given?
+        Pomo::Offline.instance_eval do
+          yield
+        end
       else
         default_manifest
       end
